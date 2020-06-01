@@ -1,16 +1,18 @@
 pipeline {
-    agent { dockerfile true }
+    agent any
     environment { 
-        CI = 'true'
-        CHROME_BIN= "/usr/bin/google-chrome"
-        NO_PROXY = "localhost, 0.0.0.0/4201, 0.0.0.0/9876"
-        JENKINS_HOME = "/home/sardor/Desktop/DEVELOPMENT/Working_with_Father/Angular_Project/JenkinsHome"
     }
     stages {
         stage('Build') {
             steps {
               
-                sh '/home/ec2-user/JenkinsHome/scripts/bigTest.sh'
+                sh 'cd /var/www/html'
+                sh 'sudo git init'
+                sh 'sudo git clone https://github.com/ChildOfJustice/AngularWithJenkins.git'
+                sh 'sudo cp -R /var/www/html/AngularWithJenkins/dist/mixTestApp/* /var/www/html/'
+                sh 'sudo rm -rf AngularWithJenkins/'
+
+                sh 'sudo service httpd start'
             }
         }
     }
