@@ -1,6 +1,7 @@
 pipeline {
     agent any
     environment { 
+        CICD = 'true'
     }
     stages {
         stage('Build') {
